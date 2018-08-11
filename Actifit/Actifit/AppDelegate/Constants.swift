@@ -68,23 +68,4 @@ func Format(fmt : String) -> String {
     //  let str : String =  Format(fmt: "\("this is : ")\(floatVal)")
 }
 
-extension UIDevice {
-    var isSimulator: Bool {
-        
-        #if arch(i386) || arch(x86_64)
-        return true
-        #else
-        return false
-        #endif
-        
-        //return UIDevice.current.userInterfaceIdiom.rawValue == 0
-        
-        //not working
-        
-        //        #if TARGET_IOS_SIMULATOR
-        //            return true
-        //        #else
-        //            return false
-        //        #endif
-    }
-}
+
