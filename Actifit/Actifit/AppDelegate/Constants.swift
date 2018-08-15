@@ -11,11 +11,12 @@ import UIKit
  
 //MARK: Singletons
 
-let MainBundle  =  Bundle.main
-let Application = UIApplication.shared
-let AppDelegate  = Application.delegate as! AFAppDelegate
-let DeviceType = AFTDeviceType()
-let ISSimulator   = (UIDevice.current.isSimulator)
+let MainBundle         =  Bundle.main
+let Application        = UIApplication.shared
+let AppDelegate        = Application.delegate as! AFAppDelegate
+let DeviceType         = AFTDeviceType()
+let ISSimulator        = (UIDevice.current.isSimulator)
+let APIMaster          = API.sharedInstance
 
 //MARK: Device
 
@@ -57,6 +58,21 @@ let DeviceHeight = max(ScreenWidth,ScreenHeight)
 let NavBarHeight   =          (20+44)
 let SideBarWidth    =         IsPad ? 320 : 240
 let MasterWidthForSplitVC =    320
+
+//MARK: Colors
+
+extension UIColor{
+    class  func UIColorWithRGBA(r: CGFloat, g:CGFloat, b:CGFloat, a:CGFloat) -> UIColor {
+        return UIColor(
+            red: CGFloat (r/255.0),
+            green: CGFloat (g/255.0),
+            blue: CGFloat (b/255.0),
+            alpha: CGFloat(a)
+        )
+    }
+}
+
+public let ColorTheme: UIColor = UIColor.UIColorWithRGBA(r: 245, g: 0, b: 35, a: 1.0)
 
 func Format(fmt : String) -> String {
     
