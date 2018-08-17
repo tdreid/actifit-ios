@@ -3,6 +3,7 @@
 //  Actifit
 //
 //  Created by Hitender kumar on 15/08/18.
+//  Copyright © 2018 actifit.io. All rights reserved.
 //
 
 import Foundation
@@ -39,6 +40,23 @@ public class API : NSObject{
         request.addBasicHeaderFields()
         self.forwardRequest(request: request, httpMethod: HttpMethods.HttpMethod_POST, completion: completion, failure: failure)
     }
+    
+    func getWalletBalanceWith(username : String, completion : APICompletionHandler, failure : APIFailureHandler) {
+        let urlStr = ApiUrls.walletBalance + username
+        let url = URL.init(string: urlStr)
+        var request = URLRequest.init(url: url!)
+        request.addBasicHeaderFields()
+        self.forwardRequest(request: request, httpMethod: HttpMethods.HttpMethod_GET, completion: completion, failure: failure)
+    }
+    
+    func getTransactions(username : String, completion : APICompletionHandler, failure : APIFailureHandler) {
+        let urlStr = ApiUrls.transactions + username
+        let url = URL.init(string: urlStr)
+        var request = URLRequest.init(url: url!)
+        request.addBasicHeaderFields()
+        self.forwardRequest(request: request, httpMethod: HttpMethods.HttpMethod_GET, completion: completion, failure: failure)
+    }
+    
     
     //MARK: Dispatching Request to server
     

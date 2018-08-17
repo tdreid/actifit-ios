@@ -3,6 +3,7 @@
 //  Actifit
 //
 //  Created by Hitender kumar on 13/08/18.
+//  Copyright © 2018 actifit.io. All rights reserved.
 //
 
 import Foundation
@@ -26,4 +27,9 @@ extension String {
     func utf8Data() -> Data {
         return self.data(using: String.Encoding.utf8)!
     }
+    
+    func byTrimming(string : String) -> String {
+        return self.trimmingCharacters(in: .whitespacesAndNewlines).trimmingCharacters(in: CharacterSet.init(charactersIn: string))
+    }
+    
 }

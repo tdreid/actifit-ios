@@ -3,10 +3,10 @@
 //  Actifit
 //
 //  Created by Hitender kumar on 12/08/18.
+//  Copyright © 2018 actifit.io. All rights reserved.
 //
 
 import UIKit
-import SwiftLoader
 
 class PostToSteemitVC: UIViewController {
     
@@ -206,7 +206,7 @@ class PostToSteemitVC: UIViewController {
     }
     
     func saveOrUpdateUserCredentials() {
-        let userName = (self.steemitUsernameTextField.text ?? "").trimmingCharacters(in: CharacterSet.init(charactersIn: "@")).lowercased()
+        let userName = (self.steemitUsernameTextField.text ?? "").byTrimming(string: "@").lowercased()
         let privatePostingKey = self.steemitPostingPrivateKeyTextField.text ?? ""
         
         if let currentUser = self.currentUser {

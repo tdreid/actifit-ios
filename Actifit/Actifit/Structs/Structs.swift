@@ -3,6 +3,7 @@
 //  Actifit
 //
 //  Created by Hitender kumar on 11/08/18.
+//  Copyright © 2018 actifit.io. All rights reserved.
 //
 
 import Foundation
@@ -111,13 +112,12 @@ struct PostKeys {
 struct HttpMethods  {
     static let HttpMethod_GET = "GET"
     static let HttpMethod_POST = "POST"
-    static let HttpMethod_DELETE = "DELETE"
+    static let HttpMethod_DELETE = "DELETE "
     static let HttpMethod_PUT = "PUT"
     static let HttpMethod_UPDATE = "UPDATE"
 }
 
 //API URLS
 struct ApiUrls {
-    static let postActivity = ""
-    static let getDailyLeaderboard = ""
+   
 }
