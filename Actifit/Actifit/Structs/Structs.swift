@@ -42,9 +42,11 @@ struct Messages {
     static let min_word_count_error = "You need to describe your activity in at least "
     static let word_plural_label = "words"
     static let current_workout_going_charity = "Your current activity rewards will go to charity "
+    static let loading_charities = "Loading Charities..."
+
     static let current_workout_settings_based = "based on your settings choice. Are you sure you want to proceed? "
     static let min_activity_steps_count_error = "You have not reached the minimum "
-
+    
     static let steemit_url = "https://www.steemit.com/"
     
     //for textfields
@@ -106,13 +108,38 @@ struct PostKeys {
     static let thighsUnit = "thighsUnit"
     static let appType = "appType"
     static let appVersion = "appVersion"
+    static let charity_name = "charity_name"
+
+}
+
+//MARK: Measurement units
+struct MeasurementUnit  {
+   
+    struct metric {
+        static let cm = "cm"
+        static let kg = "kg"
+    }
+    
+    struct us {
+        static let lb = "lb"
+        static let ft = "ft"
+        static let inch = "in"
+    }
+}
+
+//MARK: Request HTTP Methods
+struct SettinsgKeys  {
+    static let measurementSystem = "measurementSystem"
+    static let isDonatingCharity = "isDonatingCharity"
+    static let charityName = "charityName"
+    static let charityDisplayName = "charityDisplayName"
 }
 
 //MARK: Request HTTP Methods
 struct HttpMethods  {
     static let HttpMethod_GET = "GET"
     static let HttpMethod_POST = "POST"
-    static let HttpMethod_DELETE = "DELETE "
+    static let HttpMethod_DELETE = "DELETE"
     static let HttpMethod_PUT = "PUT"
     static let HttpMethod_UPDATE = "UPDATE"
 }
