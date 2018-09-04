@@ -1,9 +1,9 @@
 //
 //  Dictionary+Additions.swift
-//  Bukit
+//  Actifit
 //
 //  Created by Hitender kumar on 29/06/18.
-//  Copyright © 2018 Poplify. All rights reserved.
+//  Copyright © 2018 actifit.io. All rights reserved.
 //
 
 import Foundation

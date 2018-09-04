@@ -10,7 +10,7 @@ import Foundation
 
 let PostContentMinWordCount = 30
 let PostMinActivityStepsCount = 1000
-let CurrentAppVersion = "0.3.1"
+let CurrentAppVersion = "0.3.2"
 let AppType = "iOS"
 
 //MARK: PopUp messages
@@ -69,7 +69,7 @@ struct Messages {
 
 //MARK: AppCenter Secrets
 struct AppCenter {
-    static let SecretKey = ""
+    static let SecretKey = "6c33684c-36f1-43dd-ba7a-f027e5803fc0"
 }
 
 //MARK: Activity Model Keys
@@ -82,7 +82,7 @@ struct ActivityKeys {
 struct UserKeys {
     static let steemit_username = "steemit_username"
     static let private_posting_key = "private_posting_key"
-    static let last_post_date_time_interval = "last_post_date_time_interval"
+    static let last_post_date = "last_post_date"
 }
 
 //MARK: SERVER POST KEYS

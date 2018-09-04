@@ -117,6 +117,40 @@ class PostToSteemitVC: UIViewController {
         //save user steemit credentials privately in local database
         self.saveOrUpdateUserCredentials()
         
+        //settings default measurement system to metric
+        var isDonatingToCharity = false
+        var charityDisplayName = ""
+        var charityName = ""
+
+        var activityJson = [String : Any]()
+
+        if let settings = self.settings {
+            //send charity_name if is donating to charity and charity name is not empty
+            if settings.isDonatingCharity {
+                charityDisplayName = settings.charityDisplayName
+                charityName = settings.charityName
+            }
+            if !(charityName.isEmpty) {
+                activityJson[PostKeys.charity] = charityName
+            }
+            //updating from saved settings
+            isDonatingToCharity = settings.isDonatingCharity && !(charityName.isEmpty)
+        }
+        
+        if isDonatingToCharity {
+            self.showAlertWith(title: nil, message: Messages.current_workout_going_charity + charityDisplayName + " based on your settings choice. Are you sure you want to proceed?", okActionTitle: "YES", cancelActionTitle: "NO", okClickedCompletion: { (okClicked) in
+                self.proceeedPostingWith(json: activityJson)
+            }) { (cancelClicked) in
+                //do nothing
+            }
+        } else {
+            self.proceeedPostingWith(json: activityJson)
+        }
+    }
+    
+    func proceeedPostingWith(json : [String : Any]) {
+        var activityJson = json
+        
         // check minimum steps count required to post the activity
         var stepsCount = 0
         if let activity = self.todayActivity {
@@ -143,7 +177,6 @@ class PostToSteemitVC: UIViewController {
             }
         }
         
-        var activityJson = [String : Any]()
         activityJson[PostKeys.author] = self.currentUser?.steemit_username ?? ""
         activityJson[PostKeys.posting_key] = self.currentUser?.private_posting_key ?? ""
         activityJson[PostKeys.title] = self.postTitleTextView.text.isEmpty ? self.defaultPostTitle : self.postTitleTextView.text
@@ -158,22 +191,6 @@ class PostToSteemitVC: UIViewController {
         activityJson[PostKeys.thigs] = self.thighTextField.text ?? ""
         activityJson[PostKeys.bodyfat] = self.bodyFatTextField.text ?? ""
         
-        //settings default measurement system to metric
-        var isDonatingToCharity = false
-        var charityName = ""
-
-        if let settings = self.settings {
-            //send charity_name if is donating to charity and charity name is not empty
-            if settings.isDonatingCharity {
-                charityName = settings.charityName
-            }
-            if !(charityName.isEmpty) {
-                activityJson[PostKeys.charity] = charityName
-            }
-            //updating from saved settings
-            isDonatingToCharity = settings.isDonatingCharity && !(charityName.isEmpty)
-        }
-        
         activityJson[PostKeys.weightUnit] = self.weightUnitLabel.text!
         activityJson[PostKeys.heightUnit] = self.heightUnitLabel.text!
         activityJson[PostKeys.chestUnit] = self.chestUnitLabel.text!
@@ -182,16 +199,7 @@ class PostToSteemitVC: UIViewController {
         
         activityJson[PostKeys.appType] = AppType
         activityJson[PostKeys.appVersion] = CurrentAppVersion
-        
-        if isDonatingToCharity {
-            self.showAlertWith(title: nil, message: Messages.current_workout_going_charity + charityName, okActionTitle: "OK", cancelActionTitle: "CANCEL", okClickedCompletion: { (okClicked) in
-                self.postActvityWith(json: activityJson)
-            }) { (cancelClicked) in
-                //do nothing
-            }
-        } else {
-            self.postActvityWith(json: activityJson)
-        }
+        self.postActvityWith(json: activityJson)
     }
     
     //MARK: HELPERS
@@ -265,10 +273,10 @@ class PostToSteemitVC: UIViewController {
         
         if let currentUser = self.currentUser {
             //update user saved username and private posting key
-            currentUser.updateUser(steemit_username: userName, private_posting_key: privatePostingKey, last_post_date_time_interval: currentUser.last_post_date_time_interval)
+            currentUser.updateUser(steemit_username: userName, private_posting_key: privatePostingKey, last_post_date : currentUser.last_post_date)
         } else {
             //save user username and private posting key
-            User.saveWith(info: [UserKeys.steemit_username : userName, UserKeys.private_posting_key : privatePostingKey, UserKeys.last_post_date_time_interval : Date().timeIntervalSince1970])
+            User.saveWith(info: [UserKeys.steemit_username : userName, UserKeys.private_posting_key : privatePostingKey, UserKeys.last_post_date : Date().yesterday]) //save user last post date atleat before today because if the post fails, the user can atlease post next time today.
         }
         self.currentUser = User.current()
     }
@@ -294,7 +302,7 @@ class PostToSteemitVC: UIViewController {
                     if jsonString == "success" {
                         //update user last post time interval
                         if let currentUser =  User.current() {
-                            currentUser.updateUser(steemit_username: currentUser.steemit_username, private_posting_key: currentUser.private_posting_key, last_post_date_time_interval: AppDelegate.todayStartDate().timeIntervalSinceNow)
+                            currentUser.updateUser(steemit_username: currentUser.steemit_username, private_posting_key: currentUser.private_posting_key, last_post_date: Date())
                             
                         }
                         self?.showAlertWithOkCompletion(title: nil, message: Messages.success_post, okClickedCompletion: { (COM) in
