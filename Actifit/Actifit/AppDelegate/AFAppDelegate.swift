@@ -8,11 +8,6 @@
 
 import UIKit
 import RealmSwift
-
-import AppCenter
-import AppCenterAnalytics
-import AppCenterCrashes
-import AppCenterDistribute
 import IQKeyboardManagerSwift
 
 @UIApplicationMain
@@ -24,9 +19,6 @@ class AFAppDelegate: UIResponder, UIApplicationDelegate {
 
         //Enabling IBKeyboardManager to handle keyboard for textfields and textviews
         IQKeyboardManager.shared.enable = true
-
-        //MARK: Start AppCenter services
-       // MSAppCenter.start(AppCenter.SecretKey, withServices:[ MSAnalytics.self, MSCrashes.self, MSDistribute.self])
         return true
     }
 
@@ -77,6 +69,14 @@ class AFAppDelegate: UIResponder, UIApplicationDelegate {
         var calendar = NSCalendar.current
         calendar.timeZone = NSTimeZone.local
         let dateAtMidnight = calendar.startOfDay(for: Date())
+        return dateAtMidnight
+    }
+    
+    func startDateFor(date : Date) -> Date {
+        //For Start Date
+        var calendar = NSCalendar.current
+        calendar.timeZone = NSTimeZone.local
+        let dateAtMidnight = calendar.startOfDay(for: date)
         return dateAtMidnight
     }
     
